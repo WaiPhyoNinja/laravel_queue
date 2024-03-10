@@ -7,8 +7,8 @@
           <tr>
             <th scope="col">#</th>
             <th scope="col">email</th>
-            <th scope="col">Create Time</th>
-            <th scope="col">Update Time</th>
+            <th scope="col">User Click Time</th>
+            <th scope="col">Queue output Time</th>
           </tr>
         </thead>
         <tbody>
@@ -18,7 +18,6 @@
             <th scope="row">{{ $mail->id }}</th>
             <td>{{ $mail->email }}</td>
             <td>{{ $mail->sent_at }}</td>
-            <td>{{ $mail->created_at }}</td>
             <td>{{ $mail->updated_at }}</td>
           </tr>
           @endforeach

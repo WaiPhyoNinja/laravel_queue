@@ -19,6 +19,7 @@ class SendEmailJob implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     protected $emailData;
+    protected $userClickTime;
 
     /**
      * Create a new job instance.
@@ -26,9 +27,10 @@ class SendEmailJob implements ShouldQueue
      * @param array $emailData
      * @return void
      */
-    public function __construct($emailData)
+    public function __construct($emailData, $userClickTime)
     {
         $this->emailData = $emailData;
+        $this->userClickTime = $userClickTime;
     }
 
     /**
@@ -38,21 +40,18 @@ class SendEmailJob implements ShouldQueue
      */
     public function handle()
     {
-
         $emailData = $this->emailData;
         Mail::to($emailData['email'])
-            ->send(new MyEmail($emailData['subject'], $emailData['content']));
-
-        $sentAt = now();
+            ->send(new MyEmail('email subject', 'email content'));
 
         DB::table('email_logs')->insert([
             'email' => $emailData['email'],
-            'sent_at' => $sentAt,
+            'sent_at' => $this->userClickTime,
             'created_at' => now(),
             'updated_at' => now(),
         ]);
 
-        Log::info('Email sent out-time: ' . $sentAt);
+        Log::info('Email sent out-time: ' . $this->userClickTime);
     }
 
     /**

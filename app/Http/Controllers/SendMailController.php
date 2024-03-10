@@ -12,11 +12,13 @@ class SendMailController extends Controller
     {
         $validatedData = $request->validate([
             'email' => 'required|email',
-            'subject' => 'required|string',
-            'content' => 'required|string',
+            'subject' => 'string',
+            'content' => 'string',
         ]);
 
-        SendEmailJob::dispatch($validatedData)->delay(now()->addMinute(1));
+        $userClickTime = now();
+
+        SendEmailJob::dispatch($validatedData, $userClickTime)->delay(now()->addMinute(1));
 
         return back()->with('success', 'Email has been queued for sending.');
     }
