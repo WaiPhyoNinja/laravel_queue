@@ -7,8 +7,8 @@
           <tr>
             <th scope="col">#</th>
             <th scope="col">email</th>
-            <th scope="col">User Click Time</th>
-            <th scope="col">Queue output Time</th>
+            <th scope="col">Job sent to queue</th>
+            <th scope="col">Queue executed Time</th>
           </tr>
         </thead>
         <tbody>
